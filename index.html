@@ -5,14 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Vocacional Jurídico</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
-        .question { margin-bottom: 20px; }
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            padding: 20px; 
+            background: url('https://source.unsplash.com/1600x900/?law') no-repeat center center fixed; 
+            background-size: cover;
+            color: white;
+        }
+        .question { 
+            margin-bottom: 20px; 
+            background: rgba(0, 0, 0, 0.7); 
+            padding: 20px; 
+            border-radius: 10px;
+            display: inline-block;
+        }
         .hidden { display: none; }
-        button { margin-top: 10px; padding: 10px; font-size: 16px; }
+        button { 
+            margin-top: 10px; 
+            padding: 10px; 
+            font-size: 16px; 
+            border: none;
+            cursor: pointer;
+            background: #007BFF;
+            color: white;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        #result {
+            background: #cccccc; 
+            padding: 20px;
+            border-radius: 10px;
+            color: black;
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
-    <h2>Quiz Vocacional Jurídico</h2>
     <div id="quiz">
         <div class="question" id="q1">
             <p>O que mais te motiva na carreira jurídica?</p>
@@ -51,7 +82,6 @@
         </div>
     </div>
     <div id="result" class="hidden">
-        <h3>Seu perfil vocacional é:</h3>
         <p id="result-text"></p>
         <button onclick="location.reload()">Refazer o Quiz</button>
     </div>
@@ -78,7 +108,7 @@
             };
             
             document.getElementById('quiz').classList.add('hidden');
-            document.getElementById('result-text').innerText = resultText[highestScore];
+            document.getElementById('result-text').innerHTML = '<p style="font-size: 20px; font-weight: bold;">Seu perfil vocacional é:</p><p>' + resultText[highestScore] + '</p>';
             document.getElementById('result').classList.remove('hidden');
         }
     </script>
