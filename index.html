@@ -11,13 +11,11 @@
             padding: 20px; 
             background: url('https://source.unsplash.com/1600x900/?law') no-repeat center center fixed; 
             background-size: cover;
-            color: white;
+            color: black;
         }
         .question { 
             margin-bottom: 20px; 
-            background: rgba(0, 0, 0, 0.7); 
             padding: 20px; 
-            border-radius: 10px;
             display: inline-block;
         }
         .hidden { display: none; }
@@ -35,15 +33,17 @@
             background: #0056b3;
         }
         #result {
-            background: #cccccc; 
             padding: 20px;
             border-radius: 10px;
             color: black;
+            background: #f0f0f0;
             display: inline-block;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
+    <h1 style="text-align: center; font-size: 28px; font-weight: bold; color: black;">Teste Vocacional Jurídico</h1>
     <div id="quiz">
         <div class="question" id="q1">
             <p>O que mais te motiva na carreira jurídica?</p>
@@ -75,15 +75,17 @@
         </div>
         <div class="question hidden" id="q5">
             <p>Qual destas atividades mais te interessa?</p>
-            <button onclick="showResult('A')">Elaborar pareceres jurídicos para o governo</button>
-            <button onclick="showResult('B')">Negociar contratos e representar clientes</button>
-            <button onclick="showResult('C')">Defender direitos humanos</button>
-            <button onclick="showResult('D')">Ministrar aulas e produzir conhecimento</button>
+            <button onclick="showResult()">Elaborar pareceres jurídicos para o governo</button>
+            <button onclick="showResult()">Negociar contratos e representar clientes</button>
+            <button onclick="showResult()">Defender direitos humanos</button>
+            <button onclick="showResult()">Ministrar aulas e produzir conhecimento</button>
         </div>
     </div>
+    
     <div id="result" class="hidden">
+        <p style="font-size: 20px; font-weight: bold;">Seu perfil vocacional é:</p>
         <p id="result-text"></p>
-        <button onclick="location.reload()">Refazer o Quiz</button>
+        <button onclick="location.reload()" style="margin-top: 20px; padding: 10px; font-size: 16px; border: none; cursor: pointer; background: #007BFF; color: white; border-radius: 5px;">Refazer o Quiz</button>
     </div>
 
     <script>
@@ -108,7 +110,7 @@
             };
             
             document.getElementById('quiz').classList.add('hidden');
-            document.getElementById('result-text').innerHTML = '<p style="font-size: 20px; font-weight: bold;">Seu perfil vocacional é:</p><p>' + resultText[highestScore] + '</p>';
+            document.getElementById('result-text').innerHTML = resultText[highestScore];
             document.getElementById('result').classList.remove('hidden');
         }
     </script>
