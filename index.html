@@ -17,10 +17,13 @@
             margin-bottom: 20px; 
             padding: 20px; 
             display: inline-block;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            transition: opacity 0.5s ease-in-out;
         }
-        .hidden { display: none; }
+        .hidden { display: none; opacity: 0; }
         button { 
-            margin-top: 10px; 
+            margin: 10px; 
             padding: 10px; 
             font-size: 16px; 
             border: none;
@@ -31,6 +34,12 @@
         }
         button:hover {
             background: #0056b3;
+        }
+        .back-button {
+            background: #6c757d;
+        }
+        .back-button:hover {
+            background: #545b62;
         }
         #result {
             padding: 20px;
@@ -43,70 +52,82 @@
     </style>
 </head>
 <body>
-    <h1 style="text-align: center; font-size: 28px; font-weight: bold; color: black;">Teste Vocacional Jurídico</h1>
+    <h1>Teste Vocacional Jurídico</h1>
     <div id="quiz">
         <div class="question" id="q1">
             <p>O que mais te motiva na carreira jurídica?</p>
-            <button onclick="nextQuestion(1, 'A')">Defender os interesses do Estado</button>
-            <button onclick="nextQuestion(1, 'B')">Autonomia e mercado privado</button>
-            <button onclick="nextQuestion(1, 'C')">Atuar em causas sociais</button>
-            <button onclick="nextQuestion(1, 'D')">Produzir conhecimento e ensinar</button>
+            <button onclick="nextQuestion(1, 'A')">Defender o Estado</button>
+            <button onclick="nextQuestion(1, 'B')">Autonomia privada</button>
+            <button onclick="nextQuestion(1, 'C')">Atuar socialmente</button>
+            <button onclick="nextQuestion(1, 'D')">Ensinar e pesquisar</button>
         </div>
         <div class="question hidden" id="q2">
             <p>Qual ambiente de trabalho você prefere?</p>
             <button onclick="nextQuestion(2, 'A')">Instituições públicas</button>
-            <button onclick="nextQuestion(2, 'B')">Empresas e escritórios</button>
-            <button onclick="nextQuestion(2, 'C')">ONGs e organismos internacionais</button>
-            <button onclick="nextQuestion(2, 'D')">Universidades e pesquisa</button>
+            <button onclick="nextQuestion(2, 'B')">Empresas/escritórios</button>
+            <button onclick="nextQuestion(2, 'C')">ONGs e organismos</button>
+            <button onclick="nextQuestion(2, 'D')">Universidades</button>
+            <button class="back-button" onclick="previousQuestion(2)">Voltar</button>
         </div>
         <div class="question hidden" id="q3">
-            <p>O que mais te atrai na advocacia?</p>
-            <button onclick="nextQuestion(3, 'A')">Estabilidade e serviço público</button>
-            <button onclick="nextQuestion(3, 'B')">Oportunidades no setor privado</button>
-            <button onclick="nextQuestion(3, 'C')">Impacto social</button>
-            <button onclick="nextQuestion(3, 'D')">Pesquisa e ensino</button>
+            <p>Você gosta de resolver conflitos?</p>
+            <button onclick="nextQuestion(3, 'A')">Por meio da Justiça</button>
+            <button onclick="nextQuestion(3, 'B')">Acordos privados</button>
+            <button onclick="nextQuestion(3, 'C')">Mediando socialmente</button>
+            <button onclick="nextQuestion(3, 'D')">Analisando e estudando</button>
+            <button class="back-button" onclick="previousQuestion(3)">Voltar</button>
         </div>
         <div class="question hidden" id="q4">
-            <p>Como você se vê lidando com conflitos?</p>
-            <button onclick="nextQuestion(4, 'A')">Defendendo o Estado</button>
-            <button onclick="nextQuestion(4, 'B')">Representando clientes privados</button>
-            <button onclick="nextQuestion(4, 'C')">Mediando questões sociais</button>
-            <button onclick="nextQuestion(4, 'D')">Estudando e escrevendo sobre soluções</button>
+            <p>Que tipo de desafio jurídico te interessa mais?</p>
+            <button onclick="nextQuestion(4, 'A')">Casos criminais e penais</button>
+            <button onclick="nextQuestion(4, 'B')">Direito empresarial e contratos</button>
+            <button onclick="nextQuestion(4, 'C')">Direitos humanos e sociais</button>
+            <button onclick="nextQuestion(4, 'D')">Pesquisa e desenvolvimento teórico</button>
+            <button class="back-button" onclick="previousQuestion(4)">Voltar</button>
         </div>
         <div class="question hidden" id="q5">
-            <p>Qual destas atividades mais te interessa?</p>
-            <button onclick="showResult()">Elaborar pareceres jurídicos para o governo</button>
-            <button onclick="showResult()">Negociar contratos e representar clientes</button>
-            <button onclick="showResult()">Defender direitos humanos</button>
-            <button onclick="showResult()">Ministrar aulas e produzir conhecimento</button>
+            <p>O que mais te atrai no Direito?</p>
+            <button onclick="showResult()">Elaborar pareceres</button>
+            <button onclick="showResult()">Defender clientes</button>
+            <button onclick="showResult()">Atuar em causas sociais</button>
+            <button onclick="showResult()">Ministrar aulas</button>
+            <button class="back-button" onclick="previousQuestion(5)">Voltar</button>
         </div>
     </div>
     
     <div id="result" class="hidden">
         <p style="font-size: 20px; font-weight: bold;">Seu perfil vocacional é:</p>
         <p id="result-text"></p>
-        <button onclick="location.reload()" style="margin-top: 20px; padding: 10px; font-size: 16px; border: none; cursor: pointer; background: #007BFF; color: white; border-radius: 5px;">Refazer o Quiz</button>
+        <button onclick="location.reload()">Refazer o Quiz</button>
     </div>
 
     <script>
         let scores = { A: 0, B: 0, C: 0, D: 0 };
-        
+        let currentQuestion = 1;
+
         function nextQuestion(questionNumber, choice) {
             scores[choice]++;
             document.getElementById('q' + questionNumber).classList.add('hidden');
             let nextQuestion = document.getElementById('q' + (questionNumber + 1));
             if (nextQuestion) {
                 nextQuestion.classList.remove('hidden');
+                currentQuestion++;
             }
         }
-        
+
+        function previousQuestion(questionNumber) {
+            document.getElementById('q' + questionNumber).classList.add('hidden');
+            document.getElementById('q' + (questionNumber - 1)).classList.remove('hidden');
+            currentQuestion--;
+        }
+
         function showResult() {
             let highestScore = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
             let resultText = {
-                A: 'Advocacia Pública (Procuradoria, Defensoria, Ministério Público)',
-                B: 'Advocacia Privada (Empresas, Escritórios, Compliance, Arbitragem)',
-                C: 'Terceiro Setor (ONGs, Organismos Internacionais, Direitos Humanos)',
-                D: 'Setor Acadêmico (Docência, Pesquisa, Produção Científica)'
+                A: 'Advocacia Pública: Você tem perfil para atuar como procurador, defensor público ou promotor de justiça.',
+                B: 'Advocacia Privada: Seu perfil se encaixa em empresas, escritórios de advocacia e compliance.',
+                C: 'Terceiro Setor: Você pode atuar em ONGs, organismos internacionais e direitos humanos.',
+                D: 'Setor Acadêmico: Seu perfil é voltado para docência, pesquisa e produção científica.'
             };
             
             document.getElementById('quiz').classList.add('hidden');
