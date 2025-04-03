@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Vocacional Jurídico</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        .question { margin-bottom: 20px; }
+        .hidden { display: none; }
+        button { margin-top: 10px; padding: 10px; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <h2>Quiz Vocacional Jurídico</h2>
+    <div id="quiz">
+        <div class="question" id="q1">
+            <p>O que mais te motiva na carreira jurídica?</p>
+            <button onclick="nextQuestion(1, 'A')">Defender os interesses do Estado</button>
+            <button onclick="nextQuestion(1, 'B')">Autonomia e mercado privado</button>
+            <button onclick="nextQuestion(1, 'C')">Atuar em causas sociais</button>
+            <button onclick="nextQuestion(1, 'D')">Produzir conhecimento e ensinar</button>
+        </div>
+        <div class="question hidden" id="q2">
+            <p>Qual ambiente de trabalho você prefere?</p>
+            <button onclick="nextQuestion(2, 'A')">Instituições públicas</button>
+            <button onclick="nextQuestion(2, 'B')">Empresas e escritórios</button>
+            <button onclick="nextQuestion(2, 'C')">ONGs e organismos internacionais</button>
+            <button onclick="nextQuestion(2, 'D')">Universidades e pesquisa</button>
+        </div>
+        <div class="question hidden" id="q3">
+            <p>O que mais te atrai na advocacia?</p>
+            <button onclick="nextQuestion(3, 'A')">Estabilidade e serviço público</button>
+            <button onclick="nextQuestion(3, 'B')">Oportunidades no setor privado</button>
+            <button onclick="nextQuestion(3, 'C')">Impacto social</button>
+            <button onclick="nextQuestion(3, 'D')">Pesquisa e ensino</button>
+        </div>
+        <div class="question hidden" id="q4">
+            <p>Como você se vê lidando com conflitos?</p>
+            <button onclick="nextQuestion(4, 'A')">Defendendo o Estado</button>
+            <button onclick="nextQuestion(4, 'B')">Representando clientes privados</button>
+            <button onclick="nextQuestion(4, 'C')">Mediando questões sociais</button>
+            <button onclick="nextQuestion(4, 'D')">Estudando e escrevendo sobre soluções</button>
+        </div>
+        <div class="question hidden" id="q5">
+            <p>Qual destas atividades mais te interessa?</p>
+            <button onclick="showResult('A')">Elaborar pareceres jurídicos para o governo</button>
+            <button onclick="showResult('B')">Negociar contratos e representar clientes</button>
+            <button onclick="showResult('C')">Defender direitos humanos</button>
+            <button onclick="showResult('D')">Ministrar aulas e produzir conhecimento</button>
+        </div>
+    </div>
+    <div id="result" class="hidden">
+        <h3>Seu perfil vocacional é:</h3>
+        <p id="result-text"></p>
+        <button onclick="location.reload()">Refazer o Quiz</button>
+    </div>
+
+    <script>
+        let scores = { A: 0, B: 0, C: 0, D: 0 };
+        
+        function nextQuestion(questionNumber, choice) {
+            scores[choice]++;
+            document.getElementById('q' + questionNumber).classList.add('hidden');
+            let nextQuestion = document.getElementById('q' + (questionNumber + 1));
+            if (nextQuestion) {
+                nextQuestion.classList.remove('hidden');
+            }
+        }
+        
+        function showResult() {
+            let highestScore = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+            let resultText = {
+                A: 'Advocacia Pública (Procuradoria, Defensoria, Ministério Público)',
+                B: 'Advocacia Privada (Empresas, Escritórios, Compliance, Arbitragem)',
+                C: 'Terceiro Setor (ONGs, Organismos Internacionais, Direitos Humanos)',
+                D: 'Setor Acadêmico (Docência, Pesquisa, Produção Científica)'
+            };
+            
+            document.getElementById('quiz').classList.add('hidden');
+            document.getElementById('result-text').innerText = resultText[highestScore];
+            document.getElementById('result').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
